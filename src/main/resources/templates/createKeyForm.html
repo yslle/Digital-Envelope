@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>키 파일 생성</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+    <div class="jumbotron">
+        <div th:if="${message}">
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                alert([[${message}]]);
+                /*]]>*/
+            </script>
+        </div>
+
+        <h2>키 파일 생성</h2>
+
+        <form action="#" th:action="@{/keys}" th:object="${createKeyDTO}" method="post">
+            <div>
+                <label for="secretKeyFName">비밀키 파일 이름:</label>
+                <input type="text" id="secretKeyFName" name="secretKeyFName" th:value="*{secretKeyFName}" required />
+            </div>
+            <div>
+                <label for="publicKeyFName">공개키 파일 이름:</label>
+                <input type="text" id="publicKeyFName" name="publicKeyFName" th:value="*{publicKeyFName}" required />
+            </div>
+            <div>
+                <label for="privateKeyFName">개인키 파일 이름:</label>
+                <input type="text" id="privateKeyFName" name="privateKeyFName" th:value="*{privateKeyFName}" required />
+            </div>
+            <div>
+                <button type="submit">생성</button>
+            </div>
+        </form>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>
