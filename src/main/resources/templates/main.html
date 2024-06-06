@@ -7,9 +7,19 @@
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
-    <span><h3><a href="#" th:href="@{/keys}">키 생성하기</a></h3></span>
-    <span><h3><a href="#" th:href="@{/signs}">전자봉투 보내기</a></h3></span>
-    <span><h3><a href="#">전자봉투 확인하기</a></h3></span>
+    <div class="jumbotron">
+        <div>
+            <a href="#" th:href="@{/keys}"><h4>키 생성하기</h4></a>
+        </div>
+        <br/>
+        <div>
+            <a href="#" th:href="@{/envelopes}"><h4>전자봉투 보내기</h4></a>
+        </div>
+        <br/>
+        <div>
+            <a href="#" th:href="@{/envelopes/list}"><h4>전자봉투 확인하기</h4></a>
+        </div>
+    </div>
     <div th:replace="fragments/footer :: footer"></div>
 </div>
 </body>

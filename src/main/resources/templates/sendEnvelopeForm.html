@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>전자봉투 보내기</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+    <div class="jumbotron">
+        <div th:if="${message}">
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                alert([[${message}]]);
+                /*]]>*/
+            </script>
+        </div>
+
+        <h4>전자봉투 보내기</h4>
+
+        <br/>
+        <form action="#" th:action="@{/envelopes}" th:object="${createSignDTO}" method="post">
+            <div class="row mb-3">
+                <label for="sender" class="col-sm-3 col-form-label">전송자:</label>
+                <div class="col-sm-9">
+                    <input type="text" id="sender" name="sender" th:value="*{sender}" class="form-control" required />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="receiver" class="col-sm-3 col-form-label">수신자:</label>
+                <div class="col-sm-9">
+                    <input type="text" id="receiver" name="receiver" th:value="*{receiver}" class="form-control" required />
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="content" class="col-sm-3 col-form-label">전송할 데이터:</label>
+                <div class="col-sm-9">
+                    <input type="text" id="content" name="content" th:value="*{content}" class="form-control" required />
+                </div>
+            </div>
+            <br/>
+            <div>
+                <button type="submit" class="btn btn-primary">전송</button>
+            </div>
+        </form>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

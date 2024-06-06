@@ -16,27 +16,37 @@
             </script>
         </div>
 
-        <h2>키 파일 생성</h2>
+        <h4>키 파일 생성</h4>
 
+        <br/>
         <form action="#" th:action="@{/keys}" th:object="${createKeyDTO}" method="post">
-            <div>
-                <label for="name">이름:</label>
-                <input type="text" id="name" name="name" th:value="*{name}" required />
+            <div class="row mb-3">
+                <label for="name" class="col-sm-3 col-form-label">이름:</label>
+                <div class="col-sm-9">
+                    <input type="text" id="name" name="name" th:value="*{name}" class="form-control" required />
+                </div>
             </div>
-            <div>
-                <label for="secretKeyFName">비밀키 파일 이름:</label>
-                <input type="text" id="secretKeyFName" name="secretKeyFName" th:value="*{secretKeyFName}" required />
+            <div class="row mb-3">
+                <label for="secretKeyFName" class="col-sm-3 col-form-label">비밀키 파일 이름:</label>
+                <div class="col-sm-9">
+                    <input type="text" id="secretKeyFName" name="secretKeyFName" th:value="*{secretKeyFName}" class="form-control" required />
+                </div>
             </div>
-            <div>
-                <label for="publicKeyFName">공개키 파일 이름:</label>
-                <input type="text" id="publicKeyFName" name="publicKeyFName" th:value="*{publicKeyFName}" required />
+            <div class="row mb-3">
+                <label for="publicKeyFName" class="col-sm-3 col-form-label">공개키 파일 이름:</label>
+                <div class="col-sm-9">
+                    <input type="text" id="publicKeyFName" name="publicKeyFName" th:value="*{publicKeyFName}" class="form-control" required />
+                </div>
             </div>
-            <div>
-                <label for="privateKeyFName">개인키 파일 이름:</label>
-                <input type="text" id="privateKeyFName" name="privateKeyFName" th:value="*{privateKeyFName}" required />
+            <div class="row mb-3">
+                <label for="privateKeyFName" class="col-sm-3 col-form-label">개인키 파일 이름:</label>
+                <div class="col-sm-9">
+                    <input type="text" id="privateKeyFName" name="privateKeyFName" th:value="*{privateKeyFName}" class="form-control" required />
+                </div>
             </div>
+            <br/>
             <div>
-                <button type="submit">생성</button>
+                <button type="submit" class="btn btn-primary">생성</button>
             </div>
         </form>
     </div>
