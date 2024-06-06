@@ -6,6 +6,7 @@ import lombok.*;
 @Setter
 public class CreateKeyDTO {
 
+    String name;
     String secretKeyFName;
     String publicKeyFName;
     String privateKeyFName;

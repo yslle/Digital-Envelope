@@ -1,11 +1,14 @@
 package com.dongduk.project.service;
 
 import com.dongduk.project.domain.dto.CreateKeyDTO;
+import com.dongduk.project.domain.Member;
+import com.dongduk.project.repository.MemberRepository;
 import com.dongduk.project.service.key.AsymmetricKeyManager;
 import com.dongduk.project.service.key.KeyFileManager;
 import com.dongduk.project.service.key.SymmetricKeyManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.*;
 
@@ -16,7 +19,9 @@ public class KeyService {
     private final SymmetricKeyManager sKeyManager;
     private final AsymmetricKeyManager aKeyManager;
     private final KeyFileManager fileManager;
+    private final MemberRepository memberRepository;
 
+    @Transactional
     public boolean createAndSaveKey(CreateKeyDTO createKeyDTO) {
         String secretKeyFName = createKeyDTO.getSecretKeyFName();
         String publicKeyFName = createKeyDTO.getPublicKeyFName();
@@ -49,7 +54,14 @@ public class KeyService {
         fileManager.saveKey(publicKeyFName, publicKey);
         fileManager.saveKey(privateKeyFName, privateKey);
 
-        // 서버에 저장
+        // DB에 저장
+        Member newMember = Member.builder()
+                .name(createKeyDTO.getName())
+                .secretKeyFName(secretKeyFName)
+                .publicKeyFName(publicKeyFName)
+                .privateKeyFName(privateKeyFName)
+                .build();
+        memberRepository.save(newMember);
 
         return true;
     }
