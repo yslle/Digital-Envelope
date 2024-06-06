@@ -40,19 +40,20 @@ public class SignData implements Serializable {
         return dataBytes;
     }
 
-    // 파일에 저장된 정보로 객체 생성(자바 직렬화)
-    public static SignData readObject(String fName) throws Exception {
-        SignData signData = null;
-        try (FileInputStream fis = new FileInputStream(fName)) {
-            try (ObjectInputStream ois = new ObjectInputStream(fis)) {
-                Object obj = ois.readObject();
-                signData = (SignData) obj;
 
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+    // 역직렬화(바이트 형태의 데이터를 SignData 객체로 변환)
+    public static SignData deserializeFromBytes(byte[] dataBytes) throws Exception {
+        SignData data = null;
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(dataBytes);
+             ObjectInputStream ois = new ObjectInputStream(bis)) {
+
+            Object obj =  ois.readObject();
+            data = (SignData) obj;
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return signData;
+        return data;
     }
 
 }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>전자봉투 확인하기</title>
+</head>
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"></div>
+    <div class="jumbotron">
+        <div th:if="${message}">
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+                alert([[${message}]]);
+                /*]]>*/
+            </script>
+        </div>
+
+        <h4>전자봉투 확인하기</h4>
+
+        <br/>
+        <form action="#" th:action="@{/envelopes/list}" method="post" >
+            <div class="row mb-3">
+                <label for="receiver" class="col-sm-3 col-form-label">수신자:</label>
+                <div class="col-sm-9">
+                    <input type="text" id="receiver" name="receiver" class="form-control" required />
+                </div>
+            </div>
+            <br/>
+            <div>
+                <button type="submit" class="btn btn-primary">조회</button>
+            </div>
+        </form>
+
+        <br/><br/>
+        <div th:if="${envelopeList}">
+            <h4>조회 결과</h4>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>전자봉투 ID</th>
+                    <th>보낸 사람</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="envelope : ${envelopeList}">
+                    <td>
+                        <a th:href="@{/envelopes/list/{envelopeId}(envelopeId=${envelope.id}, receiver=${envelope.receiver.name})}">
+                            <span th:text="${envelope.id}">전자봉투 ID</span>
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/envelopes/list/{envelopeId}(envelopeId=${envelope.id}, receiver=${envelope.receiver.name})}">
+                            <span th:text="${envelope.sender.name}">보낸 사람</span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>

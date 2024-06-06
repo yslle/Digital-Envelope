@@ -21,4 +21,16 @@ public class DigitalSigningManager {
         return signature;
     }
 
+    public boolean verifySign(byte[] signature, String content, PublicKey publicKey) {
+        boolean isVerified = false;
+        try {
+            Signature sig = Signature.getInstance(signAlgorithm);
+            sig.initVerify(publicKey);
+            sig.update(content.getBytes());
+            isVerified = sig.verify(signature); // 서명 검증
+        } catch (NoSuchAlgorithmException | InvalidKeyException | SignatureException e) {
+            throw new RuntimeException("서명 검증 중 오류가 발생하였습니다.", e);
+        }
+        return isVerified;
+    }
 }

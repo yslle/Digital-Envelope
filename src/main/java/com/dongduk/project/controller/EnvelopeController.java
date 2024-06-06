@@ -2,33 +2,32 @@ package com.dongduk.project.controller;
 
 import com.dongduk.project.domain.Envelope;
 import com.dongduk.project.domain.dto.CreateSignDTO;
-import com.dongduk.project.service.SignService;
+import com.dongduk.project.domain.dto.VerifySignDTO;
+import com.dongduk.project.service.EnvelopeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/signs")
-public class SignController {
+@RequestMapping("/envelopes")
+public class EnvelopeController {
 
-    private final SignService signService;
+    private final EnvelopeService envelopeService;
 
     @GetMapping
     public String sendDigitalSign(Model model) {
         model.addAttribute("createSignDTO", new CreateSignDTO());
-        return "sendSignForm";
+        return "sendEnvelopeForm";
     }
 
     @PostMapping
@@ -40,7 +39,7 @@ public class SignController {
         Envelope envelope = null;
 
         try {
-            envelope = signService.sendDigitalSign(createSignDTO);
+            envelope = envelopeService.sendDigitalSign(createSignDTO);
         } catch (NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException |
                  InvalidKeyException e) {
             throw new RuntimeException("전자서명 암호화 중 오류가 발생하였습니다.", e);
@@ -54,6 +53,27 @@ public class SignController {
         }
 
         model.addAttribute("createSignDTO", createSignDTO);
-        return "sendSignForm";
+        return "sendEnvelopeForm";
+    }
+
+    @GetMapping("/list")
+    public String findEnvelopeList() {
+        return "receiveEnvelopeForm";
+    }
+
+    @PostMapping("/list")
+    public String findEnvelopeList(@RequestParam String receiver, Model model) {
+        List<Envelope> envelopeList = envelopeService.findEnvelopeList(receiver);
+        model.addAttribute("envelopeList", envelopeList);
+
+        return "receiveEnvelopeForm";
+    }
+
+    @GetMapping("/list/{envelopeId}")
+    public String verifySign(@PathVariable Long envelopeId, @RequestParam String receiver, Model model) {
+        VerifySignDTO verifySignDTO = envelopeService.verifySign(envelopeId,receiver);
+        model.addAttribute("verifySignDTO", verifySignDTO);
+
+        return "envelopeDetail";
     }
 }
