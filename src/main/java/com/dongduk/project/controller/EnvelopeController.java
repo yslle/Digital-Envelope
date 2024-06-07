@@ -5,6 +5,7 @@ import com.dongduk.project.domain.dto.CreateSignDTO;
 import com.dongduk.project.domain.dto.VerifySignDTO;
 import com.dongduk.project.service.EnvelopeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,13 +25,14 @@ public class EnvelopeController {
 
     private final EnvelopeService envelopeService;
 
+    // 전자봉투 보내기
     @GetMapping
     public String sendDigitalSign(Model model) {
         model.addAttribute("createSignDTO", new CreateSignDTO());
         return "sendEnvelopeForm";
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String sendDigitalSign(@ModelAttribute("createSignDTO") CreateSignDTO createSignDTO, Model model, BindingResult result) {
         if (result.hasErrors()) {
             return "createKeyForm";
@@ -56,6 +58,7 @@ public class EnvelopeController {
         return "sendEnvelopeForm";
     }
 
+    // 전자봉투 확인하기
     @GetMapping("/list")
     public String findEnvelopeList() {
         return "receiveEnvelopeForm";

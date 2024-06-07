@@ -12,14 +12,14 @@ public class SignData implements Serializable {
 
     private byte[] signature;   // 전자서명
 
-    private String content; // 원문 텍스트 파일
+    private byte[] content; // 원문 내용 바이트
 
     private PublicKey publicKey;   // 공개키
 
     public SignData() {
     }
 
-    public SignData(byte[] signature, String content, PublicKey publicKey) {
+    public SignData(byte[] signature, byte[] content, PublicKey publicKey) {
         this.signature = signature;
         this.content = content;
         this.publicKey = publicKey;
@@ -35,7 +35,7 @@ public class SignData implements Serializable {
             dataBytes = bos.toByteArray();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("SignData 직렬화 중 오류가 발생하였습니다.", e);
         }
         return dataBytes;
     }
@@ -51,7 +51,7 @@ public class SignData implements Serializable {
             data = (SignData) obj;
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("SignData 역직렬화 중 오류가 발생하였습니다.", e);
         }
         return data;
     }

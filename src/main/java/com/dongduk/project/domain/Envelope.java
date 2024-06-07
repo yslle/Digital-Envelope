@@ -22,6 +22,6 @@ public class Envelope {
     @JoinColumn(name = "receiver_id")
     private Member receiver;
 
-    @Embedded
-    private EnvelopeData envelopeData;
+    @Lob
+    private byte[] serializedEnvelope;  // 직렬화된 전자봉투
 }
