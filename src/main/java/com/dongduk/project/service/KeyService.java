@@ -22,31 +22,27 @@ public class KeyService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public boolean createAndSaveKey(CreateKeyDTO createKeyDTO) {
-        String secretKeyFName = createKeyDTO.getSecretKeyFName();
-        String publicKeyFName = createKeyDTO.getPublicKeyFName();
-        String privateKeyFName = createKeyDTO.getPrivateKeyFName();
+    public Member createAndSaveKey(CreateKeyDTO createKeyDTO) {
 
-        System.out.println("*****");
-        System.out.println("file " + secretKeyFName);
-        System.out.println("file " + publicKeyFName);
-        System.out.println("file " + privateKeyFName);
+        StringBuffer secretKeyFName = createKeyDTO.getSecretKeyFName();
+        StringBuffer publicKeyFName = createKeyDTO.getPublicKeyFName();
+        StringBuffer privateKeyFName = createKeyDTO.getPrivateKeyFName();
 
-        // 비대칭 키 생성, 저장
+        // 대칭키 생성, 저장
         Key secretKey = null;
         try {
             secretKey = sKeyManager.createKey();
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("대칭키 생성 중 오류가 발생하였습니다.", e);
         }
         fileManager.saveKey(secretKeyFName, secretKey);
         
-        // 대칭키 생성, 저장
+        // 비대칭키 생성, 저장
         KeyPair keyPair = null;
         try {
             keyPair = aKeyManager.createKeyPair();
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("비대칭키 생성 중 오류가 발생하였습니다.", e);
         }
         PublicKey publicKey = keyPair.getPublic();
         PrivateKey privateKey = keyPair.getPrivate();
@@ -56,13 +52,11 @@ public class KeyService {
 
         // DB에 저장
         Member newMember = Member.builder()
-                .name(createKeyDTO.getName())
-                .secretKeyFName(secretKeyFName)
-                .publicKeyFName(publicKeyFName)
-                .privateKeyFName(privateKeyFName)
+                .name(String.valueOf(createKeyDTO.getName()))
+                .secretKeyFName(String.valueOf(secretKeyFName))
+                .publicKeyFName(String.valueOf(publicKeyFName))
+                .privateKeyFName(String.valueOf(privateKeyFName))
                 .build();
-        memberRepository.save(newMember);
-
-        return true;
+        return memberRepository.save(newMember);
     }
 }

@@ -21,6 +21,9 @@ public class DigitalSigningManager {
     }
 
     public boolean verifySign(byte[] signature, byte[] data, PublicKey publicKey) {
+//        String failTestData = "검증 실패 테스트를 위한 데이터";
+//        data = failTestData.getBytes();
+
         boolean isVerified = false;
         try {
             Signature sig = Signature.getInstance(signAlgorithm);

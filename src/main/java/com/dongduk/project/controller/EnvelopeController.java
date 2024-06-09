@@ -46,15 +46,16 @@ public class EnvelopeController {
                  InvalidKeyException e) {
             throw new RuntimeException("전자서명 암호화 중 오류가 발생하였습니다.", e);
         }
-
-
+        
         if (envelope != null) {
             model.addAttribute("message", "전자봉투가 전송되었습니다.");
         } else {
             model.addAttribute("message", "전자봉투 전송에 실패하였습니다.");
         }
 
-        model.addAttribute("createSignDTO", createSignDTO);
+        // 민감한 데이터 지우기
+        createSignDTO.clearSensitiveData();
+        
         return "sendEnvelopeForm";
     }
 

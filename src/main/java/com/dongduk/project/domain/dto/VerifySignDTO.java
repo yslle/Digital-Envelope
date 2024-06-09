@@ -9,8 +9,8 @@ import lombok.Setter;
 @Builder
 public class VerifySignDTO {
 
-    String sender;
-    String receiver;
-    String content;
-    boolean isVerified;
+    private String sender;
+    private String receiver;
+    private String content;
+    private boolean isVerified;
 }

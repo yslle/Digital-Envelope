@@ -36,10 +36,10 @@ public class EnvelopeService {
     public Envelope sendDigitalSign(CreateSignDTO createSignDTO) throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
 
         // member 검증
-        Member sender = memberRepository.findByName(createSignDTO.getSender())
+        Member sender = memberRepository.findByName(String.valueOf(createSignDTO.getSender()))
                 .orElseThrow(() -> new IllegalStateException("사용자를 찾을 수 없습니다."));
 
-        Member receiver = memberRepository.findByName(createSignDTO.getReceiver())
+        Member receiver = memberRepository.findByName(String.valueOf(createSignDTO.getReceiver()))
                 .orElseThrow(() -> new IllegalStateException("사용자를 찾을 수 없습니다."));
 
         // 전송자의 비대칭키 가져오기
@@ -47,7 +47,7 @@ public class EnvelopeService {
         PrivateKey senderprivateKey = (PrivateKey) keyFileManager.loadKey(sender.getPrivateKeyFName());
 
         // 수신자의 공개키 가져오기
-        PublicKey RecieverPublicKey = (PublicKey) keyFileManager.loadKey(receiver.getPublicKeyFName());
+        PublicKey recieverPublicKey = (PublicKey) keyFileManager.loadKey(receiver.getPublicKeyFName());
 
         // 비밀키 가져오기
         Key secretKey = keyFileManager.loadKey(sender.getSecretKeyFName());
@@ -74,7 +74,7 @@ public class EnvelopeService {
 
         // 비밀키를 수신자의 공개키로 암호화
         Cipher ci2 = Cipher.getInstance("RSA");
-        ci2.init(Cipher.ENCRYPT_MODE, RecieverPublicKey);
+        ci2.init(Cipher.ENCRYPT_MODE, recieverPublicKey);
         byte[] encryptedSecretKey = ci2.doFinal(secretKey.getEncoded());
 
         // EnvelopeData 객체 생성
@@ -100,7 +100,7 @@ public class EnvelopeService {
                 throw new RuntimeException("파일 내용을 byte로 가져오는 중 오류가 발생하였습니다.", e);
             }
         } else if (createSignDTO.getContent() != null && !createSignDTO.getContent().isEmpty()) {   // 문자열 데이터인 경우
-            contentBytes = createSignDTO.getContent().getBytes();
+            contentBytes = createSignDTO.getContent().toString().getBytes();
         } else {
             throw new IllegalStateException("유효한 데이터가 입력되지 않았습니다.");
         }
@@ -114,6 +114,7 @@ public class EnvelopeService {
         return envelopeRepository.findByReceiver(member);
     }
 
+    @Transactional
     public VerifySignDTO verifySign(Long envelopeId, String receiver) {
         Member member = memberRepository.findByName(receiver)
                 .orElseThrow(() -> new IllegalStateException("사용자를 찾을 수 없습니다."));
@@ -145,7 +146,7 @@ public class EnvelopeService {
             decryptedData = c2.doFinal(envelopeData.getEncryptedSignData());
         } catch (NoSuchPaddingException | IllegalBlockSizeException | NoSuchAlgorithmException |
                  BadPaddingException | InvalidKeyException e) {
-            throw new RuntimeException("복호화 중 오류가 발생하였습니다.", e);
+            throw new RuntimeException("EnvelopeData 복호화 중 오류가 발생하였습니다.", e);
         }
 
         // SignData 역직렬화
@@ -153,7 +154,7 @@ public class EnvelopeService {
         try {
             signData = SignData.deserializeFromBytes(decryptedData);
         } catch (Exception e) {
-            throw new RuntimeException("전자서명 데이터 역직렬화 중 오류가 발생하였습니다.", e);
+            throw new RuntimeException("SignData 역직렬화 중 오류가 발생하였습니다.", e);
         }
 
         // 전자서명 검증

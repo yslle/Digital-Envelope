@@ -1,5 +1,6 @@
 package com.dongduk.project.controller;
 
+import com.dongduk.project.domain.Member;
 import com.dongduk.project.domain.dto.CreateKeyDTO;
 import com.dongduk.project.service.KeyService;
 import lombok.RequiredArgsConstructor;
@@ -30,14 +31,17 @@ public class KeyController {
             return "createKeyForm";
         }
 
-        boolean isSuccess = keyService.createAndSaveKey(createKeyDTO);
-        if (isSuccess) {
+        Member member = keyService.createAndSaveKey(createKeyDTO);
+
+        if (member != null) {
             model.addAttribute("message", "키 파일이 생성되었습니다.");
         } else {
             model.addAttribute("message", "키 파일 생성에 실패하였습니다.");
         }
 
-        model.addAttribute("createKeyDTO", createKeyDTO);
+        // 민감한 데이터 지우기
+        createKeyDTO.clearSensitiveData();
+
         return "createKeyForm";
     }
 }
