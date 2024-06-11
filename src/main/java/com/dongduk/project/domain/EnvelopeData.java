@@ -9,6 +9,8 @@ import java.io.*;
 @Getter
 public class EnvelopeData implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private byte[] encryptedSignData;  // 암호화된 데이터
     private byte[] encryptedSecretKey;  // 암호화된 비밀키
 
