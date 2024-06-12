@@ -20,17 +20,19 @@
 <br/>
 
 ## 1. 시나리오
-![002](https://github.com/yslle/Digital-Envelope/assets/88431909/90a661a4-6188-4760-ae76-94a7720c3429)    
-<br/>
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/c83c3fea-b071-4a13-a4de-4ce8acbf1851" />
+<br/><br/>
+
 ## 2. UI
-![003](https://github.com/yslle/Digital-Envelope/assets/88431909/8fcc915f-8d45-406f-a10c-a0f9549cae4d)
-![004](https://github.com/yslle/Digital-Envelope/assets/88431909/f14c134c-77a6-487f-b18a-65915bd49091)
-![005](https://github.com/yslle/Digital-Envelope/assets/88431909/63dc187a-4af1-4729-9f66-7a47a5207f02)
-![006](https://github.com/yslle/Digital-Envelope/assets/88431909/9d46d3fb-395d-471a-9f03-07a2f889a18d)
-![007](https://github.com/yslle/Digital-Envelope/assets/88431909/1d79955d-acb3-4e21-9362-d87f7ab1b05a)    
-<br/>
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/1e942f2f-1c25-4830-a55e-26014d6ec7a2" />
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/1b138321-bd2c-40fe-98e0-56d6e631bbb3" />
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/34da8cd7-84fe-44e4-9433-50454d5e6b7e" />
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/a52993ef-4511-48b1-9ae9-dff20ec5e230" />
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/3fdade80-d2d9-4e15-b09b-389f37e78184" />  
+<br/><br/>
+
 ## 3. 클래스 디자인
-![008](https://github.com/yslle/Digital-Envelope/assets/88431909/834102e9-ca90-4031-81e8-ce0328e51167)
-![009](https://github.com/yslle/Digital-Envelope/assets/88431909/4436e434-61d1-4e5f-9abe-554025e10d77)
-![010](https://github.com/yslle/Digital-Envelope/assets/88431909/97e909c0-2645-4707-8afe-74ded5bc5e0f)
-![011](https://github.com/yslle/Digital-Envelope/assets/88431909/ff809a13-97b0-4917-9bc6-0ad2e848af3e)
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/34ed5f44-f7fd-42b6-8df0-977b6cf91392" />
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/9b44f8bf-a9eb-4388-9f42-b9ffa737b65f" />
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/04480936-4bb6-4a5e-8819-a65dc71bcca1" />
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/b26b69a8-0a1a-4ce0-bc15-5d0e69ca02a0" />
