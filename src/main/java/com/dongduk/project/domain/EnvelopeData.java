@@ -1,7 +1,5 @@
 package com.dongduk.project.domain;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Lob;
 import lombok.Getter;
 
 import java.io.*;
