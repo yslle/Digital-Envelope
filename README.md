@@ -33,6 +33,6 @@
 
 ## 3. 클래스 디자인
 <img src="https://github.com/yslle/Digital-Envelope/assets/88431909/34ed5f44-f7fd-42b6-8df0-977b6cf91392" />
-<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/9b44f8bf-a9eb-4388-9f42-b9ffa737b65f" />
+<img src="https://github.com/yslle/Digital-Envelope/assets/88431909/681530f6-afce-403e-a5f6-5067bb430c3d" />
 <img src="https://github.com/yslle/Digital-Envelope/assets/88431909/04480936-4bb6-4a5e-8819-a65dc71bcca1" />
 <img src="https://github.com/yslle/Digital-Envelope/assets/88431909/b26b69a8-0a1a-4ce0-bc15-5d0e69ca02a0" />
